@@ -2,7 +2,7 @@
 
 Review AI-generated code across Git repositories in one local workspace. Follow a feature from the service that implements it to the app that uses it, question changes that seem unnecessary, and keep a record of what you personally checked.
 
-[Try the demo](#try-the-demo) · [Review your own feature](#review-your-own-feature) · [CLI reference](docs/cli.md) · [![CI](https://github.com/sethigoldy/own-the-diff/actions/workflows/ci.yml/badge.svg)](https://github.com/sethigoldy/own-the-diff/actions/workflows/ci.yml)
+[Try the demo](#try-the-demo) · [Review your own feature](#review-your-own-feature) · [CLI reference](docs/cli.md) · [Roadmap](roadmap.md) · [![CI](https://github.com/sethigoldy/own-the-diff/actions/workflows/ci.yml/badge.svg)](https://github.com/sethigoldy/own-the-diff/actions/workflows/ci.yml)
 
 ## Why I built this
 
