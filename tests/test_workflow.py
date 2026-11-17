@@ -16,7 +16,7 @@ from cor.assistance import packet
 from cor.cli import main
 from cor.demo import demo
 from cor.engine import Engine
-from cor.server import LocalServer
+from cor.server import LocalServer, STATIC
 
 
 class SharedWorkflow(unittest.TestCase):
@@ -73,6 +73,19 @@ class SharedWorkflow(unittest.TestCase):
         ):
             self.assertEqual(main(args), 0)
         return out.getvalue()
+
+    def test_browser_session_from_symlinked_installation(self):
+        alias = self.home / "installed-assets"
+        alias.symlink_to(STATIC, target_is_directory=True)
+        with patch("cor.server.STATIC", alias):
+            conn = HTTPConnection("127.0.0.1", self.server.server_port, timeout=15)
+            self.addCleanup(conn.close)
+            conn.request("GET", "/")
+            response = conn.getresponse()
+            self.assertEqual(response.status, 200)
+            self.cookie = response.getheader("Set-Cookie").split(";")[0]
+            response.read()
+            self.assertEqual(self.api("GET", "/sessions"), (200, {"sessions": []}))
 
     def test_cross_client_fix_handoff_and_trusted_execution(self):
         code, v = self.api("POST", "/demo", {})

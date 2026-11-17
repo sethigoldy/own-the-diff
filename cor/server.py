@@ -173,12 +173,13 @@ class BrowserRequest(BaseHTTPRequestHandler):
             )
 
     def static(self, path):
-        candidate = (STATIC / (path.lstrip("/") or "index.html")).resolve()
-        if not candidate.is_relative_to(STATIC.resolve()) or not candidate.is_file():
+        root = STATIC.resolve()
+        candidate = (root / (path.lstrip("/") or "index.html")).resolve()
+        if not candidate.is_relative_to(root) or not candidate.is_file():
             return self.send_data(404, {"error": "Resource not found."})
         body = candidate.read_bytes()
         kind = mimetypes.guess_type(str(candidate))[0] or "application/octet-stream"
-        self.send_data(200, body, kind=kind, cookie=candidate == STATIC / "index.html")
+        self.send_data(200, body, kind=kind, cookie=candidate == root / "index.html")
 
     def api(self, segments, query, data, mutation):
         engine = self.server.engine
