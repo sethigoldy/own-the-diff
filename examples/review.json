@@ -1,0 +1,33 @@
+{
+  "title": "Retry failed jobs",
+  "objective": "Show the operator the identifier of the job they retried.",
+  "criteria": [
+    "Only a failed job can be retried.",
+    "The portal reads the identifier returned by the job service."
+  ],
+  "repos": [
+    {
+      "alias": "job-manager",
+      "path": "./job-manager",
+      "base": "HEAD",
+      "target": "WORKTREE",
+      "include_untracked": true
+    },
+    {
+      "alias": "portal",
+      "path": "./portal",
+      "base": "HEAD",
+      "target": "WORKTREE",
+      "include_untracked": true
+    }
+  ],
+  "contracts": [
+    {
+      "id": "retry-response",
+      "title": "Retry response field",
+      "expectation": "The portal reads the job identifier returned by the service.",
+      "producer": {"repo": "job-manager", "path": "api/retry.py"},
+      "consumer": {"repo": "portal", "path": "src/jobs/retry.ts"}
+    }
+  ]
+}

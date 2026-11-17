@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "code-ownership-review"
+version = "0.1.0"
+description = "Local human review of code changes across Git repositories."
+requires-python = ">=3.9"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.txt"]
+
+[project.urls]
+Homepage = "https://github.com/sethigoldy/own-the-diff"
+Documentation = "https://github.com/sethigoldy/own-the-diff/blob/main/docs/review-guide.md"
+Issues = "https://github.com/sethigoldy/own-the-diff/issues"
+
+[project.scripts]
+cor = "cor.cli:main"
+
+[tool.setuptools]
+packages = ["cor"]
+
+[tool.setuptools.package-data]
+cor = ["static/*", "static/assets/*"]
+
+[tool.setuptools.data-files]
+"share/code-ownership-review/skills/scope-review" = ["skills/scope-review/SKILL.md"]
+"share/code-ownership-review/skills/minimal-review" = ["skills/minimal-review/SKILL.md"]
+"share/code-ownership-review/skills/guided-review" = ["skills/guided-review/SKILL.md"]
